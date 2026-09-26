@@ -198,6 +198,14 @@ export interface WebsiteSettings {
   addressLines: string[];
   copyrightText: string;
   primaryColor: string;
+  socialLinks?: {
+    linkedin?: string;
+    instagram?: string;
+    facebook?: string;
+    twitter?: string;
+    youtube?: string;
+    github?: string;
+  };
 }
 
 export type PageSectionType = 

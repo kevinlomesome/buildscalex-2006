@@ -19,7 +19,8 @@ import {
   Download,
   Upload,
   FileJson,
-  Archive
+  Archive,
+  Share2
 } from "lucide-react";
 import { defaultWebsiteSettings } from "@/lib/default-content";
 import { WebsiteSettings } from "@/lib/cms-types";
@@ -422,6 +423,90 @@ export default function SettingsPage() {
                   className="w-full px-3 py-1.5 rounded-lg bg-[#030612] border border-border/50 text-xs text-silver focus:text-white focus:outline-none focus:border-primary"
                 />
               ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Official Social Media Profiles */}
+        <div className="p-6 rounded-2xl bg-[#090d1f]/80 border border-border/50 space-y-5 lg:col-span-2">
+          <div className="flex items-center justify-between">
+            <h3 className="text-base font-semibold text-white flex items-center gap-2">
+              <Share2 className="w-4 h-4 text-primary" />
+              <span>Official Social Media Profiles</span>
+            </h3>
+            <span className="text-[10px] px-2.5 py-0.5 rounded-full bg-primary/10 border border-primary/20 text-primary font-mono font-medium">
+              Global Footer & SEO Schema
+            </span>
+          </div>
+          <p className="text-xs text-silver">
+            Direct profile URLs rendered across the website footer, customer touchpoints, and Search Engine Schema.org Organization markup.
+          </p>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div>
+              <label className="block text-xs font-mono text-silver mb-1.5 flex items-center justify-between">
+                <span>LinkedIn Company URL</span>
+                <span className="text-[10px] text-primary font-mono">B2B Network</span>
+              </label>
+              <input
+                type="url"
+                value={settings.socialLinks?.linkedin || ""}
+                onChange={(e) =>
+                  setSettings({
+                    ...settings,
+                    socialLinks: {
+                      ...settings.socialLinks,
+                      linkedin: e.target.value,
+                    },
+                  })
+                }
+                placeholder="https://linkedin.com/company/buildscalex"
+                className="w-full px-3.5 py-2.5 rounded-xl bg-[#030612] border border-border/60 text-white text-sm font-mono focus:outline-none focus:border-primary placeholder:text-silver/30"
+              />
+            </div>
+
+            <div>
+              <label className="block text-xs font-mono text-silver mb-1.5 flex items-center justify-between">
+                <span>Instagram Profile URL</span>
+                <span className="text-[10px] text-rose-400 font-mono">Visual Brand</span>
+              </label>
+              <input
+                type="url"
+                value={settings.socialLinks?.instagram || ""}
+                onChange={(e) =>
+                  setSettings({
+                    ...settings,
+                    socialLinks: {
+                      ...settings.socialLinks,
+                      instagram: e.target.value,
+                    },
+                  })
+                }
+                placeholder="https://instagram.com/buildscalex"
+                className="w-full px-3.5 py-2.5 rounded-xl bg-[#030612] border border-border/60 text-white text-sm font-mono focus:outline-none focus:border-primary placeholder:text-silver/30"
+              />
+            </div>
+
+            <div>
+              <label className="block text-xs font-mono text-silver mb-1.5 flex items-center justify-between">
+                <span>Facebook Page URL</span>
+                <span className="text-[10px] text-accent-blue font-mono">Community</span>
+              </label>
+              <input
+                type="url"
+                value={settings.socialLinks?.facebook || ""}
+                onChange={(e) =>
+                  setSettings({
+                    ...settings,
+                    socialLinks: {
+                      ...settings.socialLinks,
+                      facebook: e.target.value,
+                    },
+                  })
+                }
+                placeholder="https://facebook.com/buildscalex"
+                className="w-full px-3.5 py-2.5 rounded-xl bg-[#030612] border border-border/60 text-white text-sm font-mono focus:outline-none focus:border-primary placeholder:text-silver/30"
+              />
             </div>
           </div>
         </div>

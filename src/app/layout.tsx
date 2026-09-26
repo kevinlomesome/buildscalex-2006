@@ -29,6 +29,8 @@ export const metadata: Metadata = {
   },
 };
 
+import { socialLinks } from "@/lib/constants";
+
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://buildscalex.in";
 
 const jsonLd = {
@@ -40,6 +42,11 @@ const jsonLd = {
       "name": "Build Scale X",
       "url": siteUrl,
       "logo": `${siteUrl}/logo-emblem.png`,
+      "sameAs": [
+        socialLinks.linkedin,
+        socialLinks.instagram,
+        socialLinks.facebook
+      ],
       "contactPoint": {
         "@type": "ContactPoint",
         "telephone": "+91-79903-59221",

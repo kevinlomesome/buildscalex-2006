@@ -348,7 +348,12 @@ export const defaultWebsiteSettings: WebsiteSettings = {
     "Ahmedabad, Gujarat, India."
   ],
   copyrightText: "© 2026 Build Scale X. All rights reserved.",
-  primaryColor: "#2563EB"
+  primaryColor: "#2563EB",
+  socialLinks: {
+    linkedin: "https://linkedin.com/company/buildscalex",
+    instagram: "https://instagram.com/buildscalex",
+    facebook: "https://facebook.com/buildscalex",
+  },
 };
 
 export const defaultSeoSettings: SeoSettings = {

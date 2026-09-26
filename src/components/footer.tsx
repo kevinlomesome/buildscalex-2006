@@ -3,7 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { getWhatsAppLink } from "@/lib/constants";
+import { getWhatsAppLink, socialLinks } from "@/lib/constants";
 
 import { useCMS } from "@/context/cms-context";
 
@@ -118,9 +118,36 @@ export function Footer() {
             
             <h3 className="font-heading font-semibold text-base text-foreground mb-4">Socials</h3>
             <ul className="flex gap-4 text-sm text-silver">
-              <li><a href="#" className="hover:text-foreground transition-colors">Instagram</a></li>
-              <li><a href="#" className="hover:text-foreground transition-colors">Facebook</a></li>
-              <li><a href="#" className="hover:text-foreground transition-colors">LinkedIn</a></li>
+              <li>
+                <a
+                  href={settings?.socialLinks?.instagram || socialLinks.instagram}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-foreground transition-colors"
+                >
+                  Instagram
+                </a>
+              </li>
+              <li>
+                <a
+                  href={settings?.socialLinks?.facebook || socialLinks.facebook}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-foreground transition-colors"
+                >
+                  Facebook
+                </a>
+              </li>
+              <li>
+                <a
+                  href={settings?.socialLinks?.linkedin || socialLinks.linkedin}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-foreground transition-colors"
+                >
+                  LinkedIn
+                </a>
+              </li>
             </ul>
           </div>
         </div>
