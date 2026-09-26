@@ -1,0 +1,52 @@
+rules_version = '2';
+
+service firebase.storage {
+  match /b/{bucket}/o {
+
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    function isImage() {
+      return request.resource.contentType.matches('image/.*');
+    }
+
+    function isSvg() {
+      return request.resource.contentType == 'image/svg+xml';
+    }
+
+    function isDocument() {
+      return request.resource.contentType == 'application/pdf';
+    }
+
+    function isVideo() {
+      return request.resource.contentType.matches('video/.*');
+    }
+
+    function isValidMediaUpload() {
+      return (isImage() || isSvg() || isDocument() || isVideo()) &&
+             (
+               (isImage() && request.resource.size < 10 * 1024 * 1024) ||
+               (isSvg() && request.resource.size < 5 * 1024 * 1024) ||
+               (isDocument() && request.resource.size < 20 * 1024 * 1024) ||
+               (isVideo() && request.resource.size < 50 * 1024 * 1024)
+             );
+    }
+
+    // Media library assets
+    match /media/{allPaths=**} {
+      // Public read access for website visitors
+      allow read: if true;
+      // Only authenticated admins/editors can upload, overwrite, or delete
+      allow create, update: if isAuthenticated() && isValidMediaUpload();
+      allow delete: if isAuthenticated();
+    }
+
+    // Client uploads / lead attachments (if any)
+    match /uploads/{allPaths=**} {
+      allow read: if isAuthenticated();
+      allow create: if isValidMediaUpload();
+      allow delete: if isAuthenticated();
+    }
+  }
+}

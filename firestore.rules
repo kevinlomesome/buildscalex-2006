@@ -1,0 +1,185 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // =========================================================================
+    // RBAC & AUTHENTICATION HELPERS
+    // =========================================================================
+
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    function getUserDoc() {
+      return get(/databases/$(database)/documents/users/$(request.auth.uid)).data;
+    }
+
+    // Role checks (supports custom claims or users collection document)
+    function isSuperAdmin() {
+      return isAuthenticated() && (
+        request.auth.token.role == 'super_admin' ||
+        request.auth.token.email == 'buildscalex@gmail.com' ||
+        (exists(/databases/$(database)/documents/users/$(request.auth.uid)) &&
+         getUserDoc().role == 'super_admin')
+      );
+    }
+
+    function isAdmin() {
+      return isSuperAdmin() || (
+        isAuthenticated() && (
+          request.auth.token.role == 'admin' ||
+          (exists(/databases/$(database)/documents/users/$(request.auth.uid)) &&
+           getUserDoc().role in ['super_admin', 'admin'])
+        )
+      );
+    }
+
+    function isEditor() {
+      return isAdmin() || (
+        isAuthenticated() && (
+          request.auth.token.role in ['super_admin', 'admin', 'editor'] ||
+          (exists(/databases/$(database)/documents/users/$(request.auth.uid)) &&
+           getUserDoc().role in ['super_admin', 'admin', 'editor'])
+        )
+      );
+    }
+
+    // =========================================================================
+    // 1. PUBLIC READ, ROLE-BASED WRITE (Website CMS Collections)
+    // =========================================================================
+    // Public visitors: Read only
+    // Editors: Can create and update content
+    // Admins / Super Admins: Can delete content (Editors CANNOT delete)
+
+    match /homepage/{docId} {
+      allow read: if true;
+      allow create, update: if isEditor();
+      allow delete: if isAdmin();
+    }
+
+    match /about/{docId} {
+      allow read: if true;
+      allow create, update: if isEditor();
+      allow delete: if isAdmin();
+    }
+
+    match /services/{docId} {
+      allow read: if true;
+      allow create, update: if isEditor();
+      allow delete: if isAdmin();
+    }
+
+    match /industries/{docId} {
+      allow read: if true;
+      allow create, update: if isEditor();
+      allow delete: if isAdmin();
+    }
+
+    match /process/{docId} {
+      allow read: if true;
+      allow create, update: if isEditor();
+      allow delete: if isAdmin();
+    }
+
+    match /faq/{docId} {
+      allow read: if true;
+      allow create, update: if isEditor();
+      allow delete: if isAdmin();
+    }
+
+    match /contact/{docId} {
+      allow read: if true;
+      allow create, update: if isEditor();
+      allow delete: if isAdmin();
+    }
+
+    match /testimonials/{docId} {
+      allow read: if true;
+      allow create, update: if isEditor();
+      allow delete: if isAdmin();
+    }
+
+    match /projects/{docId} {
+      allow read: if true;
+      allow create, update: if isEditor();
+      allow delete: if isAdmin();
+    }
+
+    match /blogs/{docId} {
+      allow read: if true;
+      allow create, update: if isEditor();
+      allow delete: if isAdmin();
+    }
+
+    match /pages/{docId} {
+      allow read: if true;
+      allow create, update: if isEditor();
+      allow delete: if isAdmin();
+    }
+
+    match /seo/{docId} {
+      allow read: if true;
+      allow create, update: if isEditor();
+      allow delete: if isAdmin();
+    }
+
+    // =========================================================================
+    // 2. SUPER ADMIN ONLY (Settings & User Management)
+    // =========================================================================
+    match /settings/{docId} {
+      allow read: if true;
+      allow write: if isSuperAdmin();
+    }
+
+    match /users/{userId} {
+      allow read: if isAuthenticated();
+      allow write: if isSuperAdmin();
+    }
+
+    // =========================================================================
+    // 3. LEADS & INBOUND INQUIRIES
+    // =========================================================================
+    // Public visitors can only create (submit leads) with valid required fields
+    // Only authenticated Admins can view, qualify, update, or delete leads
+    match /leads/{leadId} {
+      allow create: if request.resource.data.fullName is string &&
+                       request.resource.data.fullName.size() >= 2 &&
+                       request.resource.data.email is string;
+      allow read, update, delete: if isAdmin();
+    }
+
+    // =========================================================================
+    // 4. MEDIA ASSETS
+    // =========================================================================
+    match /media/{mediaId} {
+      allow read: if true;
+      allow create, update: if isEditor();
+      allow delete: if isAdmin();
+    }
+
+    // =========================================================================
+    // 5. AUDIT LOGS, VERSIONING & NOTIFICATIONS
+    // =========================================================================
+    match /notifications/{notificationId} {
+      allow read: if isAuthenticated();
+      allow write: if isAdmin();
+    }
+
+    match /activity/{activityId} {
+      allow read: if isAdmin();
+      allow create: if isEditor();
+      allow update, delete: if isSuperAdmin();
+    }
+
+    match /versions/{versionId} {
+      allow read: if isEditor();
+      allow create: if isEditor();
+      allow delete: if isSuperAdmin();
+    }
+
+    match /analytics/{docId} {
+      allow read, write: if isAdmin();
+    }
+  }
+}
