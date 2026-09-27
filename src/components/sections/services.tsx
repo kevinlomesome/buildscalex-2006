@@ -21,6 +21,8 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { getWhatsAppLink } from "@/lib/constants";
+import { useCMS } from "@/context/cms-context";
+import { ServiceItem } from "@/lib/cms-types";
 
 interface ServiceDetail {
   id: string;
@@ -33,6 +35,24 @@ interface ServiceDetail {
   howItWorks: string;
   businessOutcomes: string;
   deliverables: string[];
+}
+
+function resolveServiceIcon(iconName?: string) {
+  switch (iconName?.toLowerCase()) {
+    case "globe": return <Globe className="w-5 h-5 text-primary" />;
+    case "bot": return <Bot className="w-5 h-5 text-primary" />;
+    case "workflow": return <Workflow className="w-5 h-5 text-primary" />;
+    case "target": return <Target className="w-5 h-5 text-primary" />;
+    case "database": return <Database className="w-5 h-5 text-primary" />;
+    case "cpu": return <Cpu className="w-5 h-5 text-primary" />;
+    case "megaphone": return <Megaphone className="w-5 h-5 text-primary" />;
+    case "trendingup":
+    case "filter": return <TrendingUp className="w-5 h-5 text-primary" />;
+    case "code":
+    case "code2": return <Code2 className="w-5 h-5 text-primary" />;
+    case "users": return <Users className="w-5 h-5 text-primary" />;
+    default: return <Layers className="w-5 h-5 text-primary" />;
+  }
 }
 
 const servicesData: ServiceDetail[] = [
@@ -183,8 +203,50 @@ const servicesData: ServiceDetail[] = [
 ];
 
 export function ServicesSection() {
-  const [activeId, setActiveId] = useState<string>(servicesData[0].id);
-  const activeService = servicesData.find((s) => s.id === activeId) || servicesData[0];
+  const { services: cmsServices } = useCMS();
+
+  // Dynamically map from CMS services if available, else fallback to servicesData
+  const displayServices: ServiceDetail[] = cmsServices && cmsServices.length > 0
+    ? cmsServices
+        .filter((s: ServiceItem) => s.active !== false)
+        .sort((a: ServiceItem, b: ServiceItem) => (a.order || 0) - (b.order || 0))
+        .map((s: ServiceItem, idx: number) => {
+          const curated = servicesData.find(
+            (sd) => sd.id === s.id || sd.title.toLowerCase() === s.title.toLowerCase()
+          );
+          const deliverables =
+            s.categories && s.categories.length > 0
+              ? s.categories.map((c) => c.title)
+              : curated?.deliverables || [
+                  `${s.title} production architecture`,
+                  "Lighthouse 95+ Core Web Vitals optimization",
+                  "Full source code and GitHub repository ownership",
+                  "Automated lead capture & CRM synchronization",
+                  "Dedicated engineering support & SLA"
+                ];
+
+          return {
+            id: s.id,
+            number: s.number || String(idx + 1).padStart(2, "0"),
+            title: s.title,
+            shortDescription: s.subtitle || s.description || curated?.shortDescription || "",
+            icon: resolveServiceIcon(s.iconName),
+            whatItIs: s.description || curated?.whatItIs || "High-performance digital systems engineered for authority and conversion.",
+            whoItIsFor: s.subtitle || curated?.whoItIsFor || "Businesses and founders requiring modern, bespoke digital infrastructure.",
+            howItWorks: curated?.howItWorks || "We engineer custom type-safe architectures, conduct rigorous performance profiling, and integrate automated client acquisition pipelines.",
+            businessOutcomes: curated?.businessOutcomes || "Sub-second responsiveness, zero lost leads, and scalable technical authority.",
+            deliverables
+          };
+        })
+    : servicesData;
+
+  const [activeId, setActiveId] = useState<string>(
+    displayServices[0]?.id || "01-website-development"
+  );
+  
+  // Guard if activeId gets deleted
+  const activeService =
+    displayServices.find((s) => s.id === activeId) || displayServices[0] || servicesData[0];
 
   return (
     <section id="services" className="py-20 md:py-28 relative bg-[#06080E] border-y border-white/[0.06]">
@@ -204,13 +266,13 @@ export function ServicesSection() {
           </p>
         </div>
 
-        {/* 8 Services Interactive Grid & Inspector */}
+        {/* Services Interactive Grid & Inspector */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
           
           {/* Left: Services Navigation List */}
           <div className="lg:col-span-5 space-y-2.5">
-            {servicesData.map((service) => {
-              const isSelected = service.id === activeId;
+            {displayServices.map((service) => {
+              const isSelected = service.id === activeService.id;
               return (
                 <button
                   key={service.id}
@@ -339,6 +401,16 @@ export function ServicesSection() {
                         <span>{deliv}</span>
                       </div>
                     ))}
+                  </div>
+
+                  <div className="pt-6 mt-6 border-t border-white/[0.06] flex items-center justify-between">
+                    <Link
+                      href={`/services/${activeService.id}`}
+                      className="inline-flex items-center gap-2 text-xs font-mono font-semibold text-primary hover:text-blue-400 transition-colors group cursor-pointer"
+                    >
+                      <span>Explore Dedicated {activeService.title} Architecture &amp; Solutions</span>
+                      <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+                    </Link>
                   </div>
                 </div>
 

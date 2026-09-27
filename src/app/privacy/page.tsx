@@ -1,55 +1,57 @@
-export const metadata = {
+import { Metadata } from "next";
+import { LegalPageView } from "@/components/legal-page-view";
+
+export const metadata: Metadata = {
   title: "Privacy Policy | Build Scale X",
-  description: "Privacy Policy for Build Scale X",
+  description: "Privacy Policy and data governance for Build Scale X growth systems.",
 };
 
 export default function PrivacyPage() {
   return (
-    <div className="flex flex-col w-full min-h-screen pt-8 pb-24">
-      <div className="container mx-auto px-4 max-w-3xl">
-        <h1 className="text-4xl md:text-5xl font-bold mb-8">Privacy Policy</h1>
-        <p className="mb-8 text-sm text-silver">Last updated: {new Date().toLocaleDateString()}</p>
-        
-        <div className="space-y-8 text-silver">
+    <LegalPageView
+      type="privacy"
+      defaultTitle="Privacy Policy"
+      defaultContent={
+        <>
           <section>
-            <h2 className="text-2xl font-bold text-white mb-4">1. Introduction</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-3">1. Architectural Data Governance</h2>
             <p className="mb-4">
-              Welcome to Build Scale X. We respect your privacy and are committed to protecting your personal data. This privacy policy will inform you as to how we look after your personal data when you visit our website and tell you about your privacy rights and how the law protects you.
+              BuildScaleX respects your data integrity and is committed to protecting your privacy. This policy outlines how we handle data collected through our web platforms, consultation funnels, and automated CRM pipelines.
             </p>
           </section>
 
           <section>
-            <h2 className="text-2xl font-bold text-white mb-4">2. The Data We Collect About You</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-3">2. Information We Collect</h2>
             <p className="mb-4">
-              We may collect, use, store and transfer different kinds of personal data about you which we have grouped together as follows:
+              We collect information provided directly by you through our strategy consultation forms, direct WhatsApp engagements, and analytics telemetry:
             </p>
             <ul className="list-disc pl-6 space-y-2">
-              <li><strong className="text-white">Identity Data</strong> includes first name, last name, username or similar identifier.</li>
-              <li><strong className="text-white">Contact Data</strong> includes email address and telephone numbers.</li>
-              <li><strong className="text-white">Technical Data</strong> includes internet protocol (IP) address, your login data, browser type and version, time zone setting and location, browser plug-in types and versions, operating system and platform, and other technology on the devices you use to access this website.</li>
+              <li><strong className="text-foreground">Identity &amp; Contact:</strong> Full name, verified business email address, phone/WhatsApp number, company name.</li>
+              <li><strong className="text-foreground">Project Scoping:</strong> System requirements, target timelines, and estimated investment ranges.</li>
+              <li><strong className="text-foreground">Technical Telemetry:</strong> Device type, IP address, referral sources, and Core Web Vitals performance events.</li>
             </ul>
           </section>
 
           <section>
-            <h2 className="text-2xl font-bold text-white mb-4">3. How We Use Your Personal Data</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-3">3. How We Process Data</h2>
             <p className="mb-4">
-              We will only use your personal data when the law allows us to. Most commonly, we will use your personal data in the following circumstances:
+              Collected data is processed strictly for:
             </p>
             <ul className="list-disc pl-6 space-y-2">
-              <li>Where we need to perform the contract we are about to enter into or have entered into with you.</li>
-              <li>Where it is necessary for our legitimate interests (or those of a third party) and your interests and fundamental rights do not override those interests.</li>
-              <li>Where we need to comply with a legal obligation.</li>
+              <li>Scoping and delivering custom digital systems, funnels, and AI agent architectures.</li>
+              <li>Executing direct engineering communication and consultation scheduling.</li>
+              <li>Maintaining system security, audit compliance, and disaster recovery.</li>
             </ul>
           </section>
 
           <section>
-            <h2 className="text-2xl font-bold text-white mb-4">4. Contact Us</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-3">4. Security &amp; Retention</h2>
             <p className="mb-4">
-              If you have any questions about this privacy policy or our privacy practices, please contact us via our website's contact form or WhatsApp integration.
+              All lead data is encrypted in transit via SSL/TLS and stored securely in role-based Firestore infrastructure. We do not sell or monetize client or prospect data.
             </p>
           </section>
-        </div>
-      </div>
-    </div>
+        </>
+      }
+    />
   );
 }

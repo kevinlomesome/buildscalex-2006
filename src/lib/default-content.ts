@@ -10,7 +10,8 @@ import {
   AboutContent,
   TestimonialItem,
   ProjectItem,
-  BlogPost
+  BlogPost,
+  HomepageSectionItem
 } from "./cms-types";
 
 export const defaultHeroContent: HeroContent = {
@@ -458,3 +459,17 @@ export const defaultBlogs: BlogPost[] = [
     author: "Build Scale X Team",
   }
 ];
+
+export const defaultHomepageSections: HomepageSectionItem[] = [
+  { id: "hero", name: "Hero Section", enabled: true, order: 1 },
+  { id: "services", name: "Technical Capabilities & Solutions", enabled: true, order: 2 },
+  { id: "why-us", name: "Methodology & Standards", enabled: true, order: 3 },
+  { id: "process", name: "Structured Execution Roadmap", enabled: true, order: 4 },
+  { id: "industries", name: "Domain-Specific Architectures", enabled: true, order: 5 },
+  { id: "ai-automation", name: "AI & WhatsApp Infrastructure", enabled: true, order: 6 },
+  { id: "results", name: "Verified Case Studies & Standards", enabled: true, order: 7 },
+  { id: "testimonials", name: "Verified Client Endorsements", enabled: true, order: 8 },
+  { id: "faq", name: "Frequently Asked Questions", enabled: true, order: 9 },
+  { id: "cta", name: "Strategy Consultation & Intake", enabled: true, order: 10 },
+];
+

@@ -1,5 +1,6 @@
 "use client";
 
+import { useMemo } from "react";
 import { motion } from "framer-motion";
 import { 
   Briefcase, 
@@ -20,6 +21,19 @@ interface IndustryDetail {
   name: string;
   focus: string;
   solution: string;
+}
+
+function resolveIndustryIcon(iconName?: string) {
+  switch (iconName?.toLowerCase()) {
+    case "briefcase": return <Briefcase className="w-5 h-5 text-primary" />;
+    case "stethoscope": return <Stethoscope className="w-5 h-5 text-primary" />;
+    case "building":
+    case "building2": return <Building2 className="w-5 h-5 text-primary" />;
+    case "shoppingbag": return <ShoppingBag className="w-5 h-5 text-primary" />;
+    case "graduationcap": return <GraduationCap className="w-5 h-5 text-primary" />;
+    case "cpu": return <Cpu className="w-5 h-5 text-primary" />;
+    default: return <Sparkles className="w-5 h-5 text-primary" />;
+  }
 }
 
 const defaultIndustrySectors: IndustryDetail[] = [
@@ -64,6 +78,26 @@ const defaultIndustrySectors: IndustryDetail[] = [
 export function IndustriesSection() {
   const { industries: cmsIndustries } = useCMS();
 
+  const displayIndustries = useMemo(() => {
+    if (cmsIndustries && cmsIndustries.length > 0) {
+      return cmsIndustries
+        .filter((i) => i.active !== false)
+        .sort((a, b) => (a.order || 0) - (b.order || 0))
+        .map((i) => {
+          const curated = defaultIndustrySectors.find(
+            (d) => d.name.toLowerCase() === i.name.toLowerCase()
+          );
+          return {
+            name: i.name,
+            icon: resolveIndustryIcon(i.iconName) || curated?.icon || <Sparkles className="w-5 h-5 text-primary" />,
+            focus: curated?.focus || "Specialized commercial sector & enterprise operations",
+            solution: curated?.solution || "Custom conversion architecture, automated pipeline qualification, and telemetry tracking."
+          };
+        });
+    }
+    return defaultIndustrySectors;
+  }, [cmsIndustries]);
+
   return (
     <section id="industries" className="py-20 md:py-28 relative bg-[#070910] border-y border-white/[0.06]">
       <div className="container mx-auto px-4 md:px-6">
@@ -84,7 +118,7 @@ export function IndustriesSection() {
 
         {/* 6 Grid Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {defaultIndustrySectors.map((sector, idx) => (
+          {displayIndustries.map((sector, idx) => (
             <div
               key={idx}
               className="bg-[#0B0E18] border border-white/[0.06] hover:border-white/15 p-7 rounded-2xl flex flex-col justify-between transition-all duration-200"

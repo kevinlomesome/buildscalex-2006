@@ -103,7 +103,7 @@ export function HeroSection() {
               className="w-full sm:w-auto bg-primary hover:bg-blue-600 text-white font-semibold rounded-xl px-8 py-4 text-sm sm:text-base transition-all shadow-sm active:scale-[0.99] flex items-center justify-center gap-2.5 cursor-pointer border border-primary/30"
             >
               <MessageSquare className="w-4 h-4 text-white" />
-              <span>Book Strategy Consultation</span>
+              <span>{hero?.ctaPrimaryText || "Book Strategy Consultation"}</span>
               <ArrowRight className="w-4 h-4 text-white" />
             </Link>
 
@@ -112,7 +112,7 @@ export function HeroSection() {
               className="w-full sm:w-auto bg-white/[0.04] hover:bg-white/[0.08] text-foreground border border-white/10 hover:border-white/20 font-medium rounded-xl px-7 py-4 text-sm sm:text-base transition-all active:scale-[0.99] flex items-center justify-center gap-2 cursor-pointer"
             >
               <Terminal className="w-4 h-4 text-silver" />
-              <span>Explore Capabilities</span>
+              <span>{hero?.ctaSecondaryText || "Explore Capabilities"}</span>
             </Link>
           </motion.div>
 
@@ -121,24 +121,25 @@ export function HeroSection() {
             initial={{ opacity: 0, y: 10 }}
             animate={isLoaded ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
             transition={{ duration: 0.6, delay: 0.58, ease: [0.16, 1, 0.3, 1] }}
-            className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8 pt-8 border-t border-white/[0.08] w-full max-w-3xl"
+            className="flex flex-wrap items-center justify-center gap-4 md:gap-8 pt-8 border-t border-white/[0.08] w-full max-w-3xl"
           >
-            <div className="flex items-center justify-center gap-2 text-xs md:text-sm text-silver">
-              <CheckCircle2 className="w-4 h-4 text-primary shrink-0" />
-              <span>100% Handcrafted Code</span>
-            </div>
-            <div className="flex items-center justify-center gap-2 text-xs md:text-sm text-silver">
-              <CheckCircle2 className="w-4 h-4 text-primary shrink-0" />
-              <span>Sub-Second Performance</span>
-            </div>
-            <div className="flex items-center justify-center gap-2 text-xs md:text-sm text-silver">
-              <CheckCircle2 className="w-4 h-4 text-primary shrink-0" />
-              <span>Direct Engineering Access</span>
-            </div>
-            <div className="flex items-center justify-center gap-2 text-xs md:text-sm text-silver">
-              <CheckCircle2 className="w-4 h-4 text-primary shrink-0" />
-              <span>Zero Template Lock-In</span>
-            </div>
+            {(hero?.trustBadges && hero.trustBadges.length > 0
+              ? hero.trustBadges
+              : [
+                  "100% Handcrafted Code",
+                  "Sub-Second Performance",
+                  "Direct Engineering Access",
+                  "Zero Template Lock-In"
+                ]
+            ).map((badge, idx) => (
+              <div
+                key={idx}
+                className="flex items-center justify-center gap-2 text-xs md:text-sm text-silver"
+              >
+                <CheckCircle2 className="w-4 h-4 text-primary shrink-0" />
+                <span>{badge}</span>
+              </div>
+            ))}
           </motion.div>
 
         </div>

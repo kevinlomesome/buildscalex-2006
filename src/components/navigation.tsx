@@ -18,6 +18,8 @@ const baseNavLinks = [
   { name: "Services", href: "/services" },
   { name: "Industries", href: "/industries" },
   { name: "Process", href: "/process" },
+  { name: "Case Studies", href: "/projects" },
+  { name: "Insights", href: "/blogs" },
   { name: "FAQ", href: "/faq" },
   { name: "Contact", href: "/contact" },
 ];

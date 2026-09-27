@@ -14,7 +14,8 @@ import {
   TestimonialItem,
   ProjectItem,
   BlogPost,
-  PageItem
+  PageItem,
+  HomepageSectionItem
 } from "@/lib/cms-types";
 import {
   defaultHeroContent,
@@ -28,7 +29,8 @@ import {
   defaultAboutContent,
   defaultTestimonials,
   defaultProjects,
-  defaultBlogs
+  defaultBlogs,
+  defaultHomepageSections
 } from "@/lib/default-content";
 import { subscribeToDoc, subscribeToPages } from "@/lib/firebase/services";
 
@@ -46,6 +48,7 @@ interface CMSContextType {
   testimonials: TestimonialItem[];
   projects: ProjectItem[];
   blogs: BlogPost[];
+  homepageSections: HomepageSectionItem[];
   loading: boolean;
 }
 
@@ -65,6 +68,7 @@ export function CMSProvider({ children }: { children: React.ReactNode }) {
   const [testimonials, setTestimonials] = useState<TestimonialItem[]>(defaultTestimonials);
   const [projects, setProjects] = useState<ProjectItem[]>(defaultProjects);
   const [blogs, setBlogs] = useState<BlogPost[]>(defaultBlogs);
+  const [homepageSections, setHomepageSections] = useState<HomepageSectionItem[]>(defaultHomepageSections);
   const [loading] = useState<boolean>(false);
 
   useEffect(() => {
@@ -149,6 +153,18 @@ export function CMSProvider({ children }: { children: React.ReactNode }) {
       }
     });
 
+    // 14. Subscribe to Homepage Sections layout
+    const unsubSections = subscribeToDoc<{ items: HomepageSectionItem[] }>(
+      "homepage",
+      "sections",
+      { items: defaultHomepageSections },
+      (data) => {
+        if (data && Array.isArray(data.items) && data.items.length > 0) {
+          setHomepageSections(data.items);
+        }
+      }
+    );
+
     return () => {
       unsubHero();
       unsubAbout();
@@ -163,6 +179,7 @@ export function CMSProvider({ children }: { children: React.ReactNode }) {
       unsubTestimonials();
       unsubProjects();
       unsubBlogs();
+      unsubSections();
     };
   }, []);
 
@@ -182,6 +199,7 @@ export function CMSProvider({ children }: { children: React.ReactNode }) {
         testimonials,
         projects,
         blogs,
+        homepageSections,
         loading,
       }}
     >

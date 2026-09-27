@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { motion } from "framer-motion";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -61,7 +61,22 @@ const formSchema = z.object({
 
 export function CtaSection() {
   const [isRedirecting, setIsRedirecting] = useState(false);
-  const { contact } = useCMS();
+  const { contact, services: cmsServices, settings } = useCMS();
+
+  const availableServices = useMemo(() => {
+    if (cmsServices && cmsServices.length > 0) {
+      const activeTitles = cmsServices
+        .filter((s) => s.active !== false)
+        .sort((a, b) => (a.order || 0) - (b.order || 0))
+        .map((s) => s.title);
+      return [...activeTitles, "Full Growth System", "Other"];
+    }
+    return servicesList;
+  }, [cmsServices]);
+
+  const rawPhone = contact?.whatsappNumber || contact?.phone || settings?.whatsappNumber || settings?.phone || "+91 79903 59221";
+  const cleanPhone = rawPhone.replace(/\D/g, "");
+  const dynamicWhatsappUrl = `https://wa.me/${cleanPhone}`;
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -159,7 +174,7 @@ Please contact me regarding this project.
 Thank you.`;
 
     const encodedMessage = encodeURIComponent(message);
-    const redirectUrl = `${WHATSAPP_URL}?text=${encodedMessage}`;
+    const redirectUrl = `${dynamicWhatsappUrl}?text=${encodedMessage}`;
 
     setTimeout(() => {
       window.open(redirectUrl, "_blank");
@@ -197,7 +212,7 @@ Thank you.`;
                 <div className="space-y-4">
                   {/* Email Card */}
                   <a
-                    href={`mailto:${contact?.email || "buildscalex@gmail.com"}`}
+                    href={`mailto:${contact?.email || settings?.email || "buildscalex@gmail.com"}`}
                     className="flex items-center gap-4 p-3.5 rounded-2xl border border-border/70 bg-black/5 dark:bg-white/[0.03] hover:border-primary/50 hover:bg-black/10 dark:hover:bg-white/[0.06] transition-all group"
                   >
                     <div className="w-12 h-12 rounded-xl bg-primary/10 border border-primary/20 text-[#38BDF8] flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
@@ -206,14 +221,14 @@ Thank you.`;
                     <div>
                       <span className="text-xs text-silver block font-medium">Email</span>
                       <span className="text-sm font-semibold text-foreground group-hover:text-primary transition-colors">
-                        {contact?.email || "buildscalex@gmail.com"}
+                        {contact?.email || settings?.email || "buildscalex@gmail.com"}
                       </span>
                     </div>
                   </a>
 
                   {/* WhatsApp Card */}
                   <a
-                    href={getWhatsAppLink("Hi Build Scale X, I would like to inquire about your services.")}
+                    href={`${dynamicWhatsappUrl}?text=${encodeURIComponent("Hi Build Scale X, I would like to inquire about your services.")}`}
                     target="_blank"
                     rel="noreferrer"
                     className="flex items-center gap-4 p-3.5 rounded-2xl border border-border/70 bg-black/5 dark:bg-white/[0.03] hover:border-primary/50 hover:bg-black/10 dark:hover:bg-white/[0.06] transition-all group"
@@ -224,7 +239,7 @@ Thank you.`;
                     <div>
                       <span className="text-xs text-silver block font-medium">WhatsApp</span>
                       <span className="text-sm font-semibold text-foreground group-hover:text-primary transition-colors">
-                        {contact?.phone || "+91 79903 59221"}
+                        {contact?.phone || settings?.phone || "+91 79903 59221"}
                       </span>
                     </div>
                   </a>
@@ -364,7 +379,7 @@ Thank you.`;
                             Services Required
                           </FormLabel>
                           <div className="flex flex-wrap gap-2.5 pt-1">
-                            {servicesList.map((service) => {
+                            {availableServices.map((service) => {
                               const isSelected = selectedServices.includes(service);
                               return (
                                 <button

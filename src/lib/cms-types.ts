@@ -329,3 +329,11 @@ export interface ContentVersion {
   changeSummary?: string;
 }
 
+export interface HomepageSectionItem {
+  id: string;
+  name: string;
+  enabled: boolean;
+  order: number;
+}
+
+

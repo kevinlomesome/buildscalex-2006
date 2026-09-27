@@ -96,6 +96,8 @@ export function Footer() {
               <li><Link href="/services" className="hover:text-foreground transition-colors">Services</Link></li>
               <li><Link href="/industries" className="hover:text-foreground transition-colors">Industries</Link></li>
               <li><Link href="/process" className="hover:text-foreground transition-colors">Our Process</Link></li>
+              <li><Link href="/projects" className="hover:text-foreground transition-colors">Case Studies</Link></li>
+              <li><Link href="/blogs" className="hover:text-foreground transition-colors">Insights</Link></li>
               <li><Link href="/faq" className="hover:text-foreground transition-colors">FAQ</Link></li>
               <li><Link href="/contact" className="hover:text-foreground transition-colors">Contact</Link></li>
               {footerCustomPages.map((page) => (

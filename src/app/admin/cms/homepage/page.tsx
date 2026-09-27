@@ -13,15 +13,22 @@ import {
   Eye,
   Sliders,
   ShieldCheck,
-  ArrowRight
+  ArrowRight,
+  ChevronUp,
+  ChevronDown,
+  Layers
 } from "lucide-react";
 import { useCMS } from "@/context/cms-context";
-import { HeroContent } from "@/lib/cms-types";
+import { HeroContent, HomepageSectionItem } from "@/lib/cms-types";
+import { defaultHomepageSections } from "@/lib/default-content";
 import { saveDocData } from "@/lib/firebase/services";
 
 export default function HomepageCmsPage() {
-  const { hero: initialHero } = useCMS();
+  const { hero: initialHero, homepageSections: initialSections } = useCMS();
   const [hero, setHero] = useState<HeroContent>(initialHero);
+  const [sections, setSections] = useState<HomepageSectionItem[]>(
+    initialSections && initialSections.length > 0 ? initialSections : defaultHomepageSections
+  );
   const [saving, setSaving] = useState(false);
   const [savedSuccess, setSavedSuccess] = useState(false);
   const [newBadgeText, setNewBadgeText] = useState("");
@@ -32,18 +39,47 @@ export default function HomepageCmsPage() {
     }
   }, [initialHero]);
 
+  useEffect(() => {
+    if (initialSections && initialSections.length > 0) {
+      setSections(initialSections);
+    }
+  }, [initialSections]);
+
   const handleSaveToFirestore = async () => {
     setSaving(true);
     setSavedSuccess(false);
     try {
-      await saveDocData("homepage", "hero", hero);
+      await Promise.all([
+        saveDocData("homepage", "hero", hero),
+        saveDocData("homepage", "sections", { items: sections }),
+      ]);
       setSavedSuccess(true);
       setTimeout(() => setSavedSuccess(false), 3000);
     } catch (e) {
-      alert("Failed to save hero content to Firebase");
+      alert("Failed to save hero & section content to Firebase");
     } finally {
       setSaving(false);
     }
+  };
+
+  const toggleSection = (id: string) => {
+    setSections((prev) =>
+      prev.map((s) => (s.id === id ? { ...s, enabled: !s.enabled } : s))
+    );
+  };
+
+  const moveSection = (index: number, direction: "up" | "down") => {
+    const targetIndex = direction === "up" ? index - 1 : index + 1;
+    if (targetIndex < 0 || targetIndex >= sections.length) return;
+
+    const updated = [...sections];
+    const temp = updated[index];
+    updated[index] = updated[targetIndex];
+    updated[targetIndex] = temp;
+
+    // Recalculate order values
+    const ordered = updated.map((item, idx) => ({ ...item, order: idx + 1 }));
+    setSections(ordered);
   };
 
   const addTrustBadge = () => {
@@ -386,6 +422,89 @@ export default function HomepageCmsPage() {
               ))}
             </div>
           </div>
+        </div>
+      </div>
+
+      {/* Section Ordering & Visibility Management */}
+      <div className="p-6 md:p-8 rounded-2xl bg-[#090d1f]/80 border border-border/50 space-y-6">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-white/[0.08]">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center text-primary">
+              <Layers className="w-5 h-5" />
+            </div>
+            <div>
+              <h3 className="text-lg font-bold text-white">
+                Homepage Section Layout &amp; Visibility Organizer
+              </h3>
+              <p className="text-xs text-silver">
+                Enable or disable sections, and use the arrow buttons to reorder how sections appear on the homepage.
+              </p>
+            </div>
+          </div>
+          <span className="text-[11px] font-mono text-emerald-400 bg-emerald-500/10 px-3 py-1 rounded-full border border-emerald-500/20 self-start sm:self-auto">
+            Dynamic Single Source of Truth
+          </span>
+        </div>
+
+        <div className="space-y-2.5">
+          {sections.map((section, idx) => (
+            <div
+              key={section.id}
+              className={`p-4 rounded-xl border flex items-center justify-between transition-all ${
+                section.enabled
+                  ? "bg-[#030612] border-white/10"
+                  : "bg-white/[0.01] border-white/[0.04] opacity-50"
+              }`}
+            >
+              <div className="flex items-center gap-4">
+                <span className="font-mono text-xs font-semibold text-silver/60 w-6 text-center">
+                  #{idx + 1}
+                </span>
+                <div>
+                  <h4 className="text-sm font-semibold text-white">
+                    {section.name}
+                  </h4>
+                  <span className="text-[10px] font-mono text-silver/50">
+                    ID: {section.id}
+                  </span>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-3">
+                {/* Move Up Button */}
+                <button
+                  onClick={() => moveSection(idx, "up")}
+                  disabled={idx === 0}
+                  className="p-1.5 rounded-lg bg-white/5 border border-white/10 hover:bg-white/10 text-silver hover:text-white disabled:opacity-30 disabled:pointer-events-none transition-colors"
+                  title="Move Up"
+                >
+                  <ChevronUp className="w-4 h-4" />
+                </button>
+
+                {/* Move Down Button */}
+                <button
+                  onClick={() => moveSection(idx, "down")}
+                  disabled={idx === sections.length - 1}
+                  className="p-1.5 rounded-lg bg-white/5 border border-white/10 hover:bg-white/10 text-silver hover:text-white disabled:opacity-30 disabled:pointer-events-none transition-colors"
+                  title="Move Down"
+                >
+                  <ChevronDown className="w-4 h-4" />
+                </button>
+
+                {/* Toggle Visibility */}
+                <button
+                  onClick={() => toggleSection(section.id)}
+                  className={`px-3 py-1 rounded-lg text-xs font-semibold font-mono transition-colors border ${
+                    section.enabled
+                      ? "bg-emerald-500/10 text-emerald-400 border-emerald-500/30 hover:bg-emerald-500/20"
+                      : "bg-rose-500/10 text-rose-400 border-rose-500/30 hover:bg-rose-500/20"
+                  }`}
+                >
+                  {section.enabled ? "Enabled" : "Disabled"}
+                </button>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
     </div>
