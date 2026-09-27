@@ -14,23 +14,20 @@ import {
 } from "./cms-types";
 
 export const defaultHeroContent: HeroContent = {
-  badgeText: "High-Performance Growth Infrastructure",
-  headlineLine1: "Build Digital Systems That Generate More",
-  headlineGradient: "Qualified Leads",
-  headlineLine2: "& Predictable Revenue.",
-  description: "We engineer bespoke websites, automated sales funnels, and integrated AI workflows that transform your online traffic into high-value clients.",
-  ctaPrimaryText: "Book Free Strategy Call",
-  ctaSecondaryText: "Explore Growth Services",
+  badgeText: "Growth Systems & Technical Architecture",
+  headlineLine1: "We Build AI-Powered Client Acquisition Systems That Generate More",
+  headlineGradient: "Qualified Leads.",
+  headlineLine2: "",
+  description: "BuildScaleX engineers custom high-performance websites, automated lead generation systems, CRM integrations, and intelligent AI agents for ambitious businesses.",
+  ctaPrimaryText: "Book Strategy Consultation",
+  ctaSecondaryText: "Explore Capabilities",
   trustBadges: [
-    "100% Custom Code",
-    "< 15m WhatsApp Reply",
-    "AI & Funnel Ready",
-    "Zero Lock-in Contract"
+    "100% Handcrafted Code",
+    "Sub-Second Performance",
+    "Direct Engineering Access",
+    "Zero Template Lock-In"
   ],
-  metrics: [
-    { label: "Lead Growth", value: "+240%", subtext: "Average Pipeline Increase" },
-    { label: "Response Speed", value: "< 60s", subtext: "Automated WhatsApp Qualification" }
-  ]
+  metrics: []
 };
 
 export const defaultServices: ServiceItem[] = [
@@ -403,65 +400,34 @@ export const defaultAboutContent: AboutContent = {
   ]
 };
 
-export const defaultTestimonials: TestimonialItem[] = [
-  {
-    id: "test-1",
-    name: "Vikram Malhotra",
-    company: "Apex Logistics & Supply",
-    role: "Managing Director",
-    content:
-      "Build Scale X completely restructured our client acquisition. Their custom landing system and automated WhatsApp qualification boosted our qualified pipeline by 320% in the first 45 days. Worth every single rupee.",
-    rating: 5,
-    active: true,
-  },
-  {
-    id: "test-2",
-    name: "Dr. Ananya Roy",
-    company: "Roy Aesthetic & Dental Clinics",
-    role: "Founder & Chief Surgeon",
-    content:
-      "Before BSX, our clinic was losing leads due to slow WhatsApp replies. Now, inquiries receive automated triage within 30 seconds and book appointments directly on our doctors' calendars. Exceptional engineering.",
-    rating: 5,
-    active: true,
-  },
-  {
-    id: "test-3",
-    name: "Rohan Patel",
-    company: "UrbanNest Interiors & Furniture",
-    role: "Co-Founder",
-    content:
-      "Unlike previous agencies who gave us slow WordPress templates, Build Scale X built a custom Next.js catalogue with Meta ads funnel. Our cost per closed client dropped by 48%. Truly world-class team.",
-    rating: 5,
-    active: true,
-  },
-];
+export const defaultTestimonials: TestimonialItem[] = [];
 
 export const defaultProjects: ProjectItem[] = [
   {
     id: "proj-1",
-    title: "Apex Logistics Enterprise Platform",
-    client: "Apex Global",
+    title: "Enterprise Client Acquisition Platform",
+    client: "B2B Logistics & Advisory Practice",
     category: "Web Development & Funnels",
-    servicesUsed: ["Website Development", "Sales Funnels", "WhatsApp Automation"],
-    description: "Custom digital platform with real-time quote generation and CRM pipeline routing.",
+    servicesUsed: ["Website Development", "Lead Generation Systems", "CRM Integration"],
+    description: "Sub-second Next.js edge platform with automated specification calculation and real-time CRM deal routing.",
     active: true,
   },
   {
     id: "proj-2",
-    title: "MediFit Appointment Booking & Triage",
-    client: "MediFit Clinics",
+    title: "Autonomous Patient Triage & Booking Engine",
+    client: "Specialized Clinical Group",
     category: "AI & WhatsApp Automation",
-    servicesUsed: ["AI & WhatsApp Automation", "CRM & Lead Management"],
-    description: "Automated patient triage and appointment management system with zero staff overhead.",
+    servicesUsed: ["AI Agents", "AI Automation", "CRM Integration"],
+    description: "24/7 conversational AI triage system qualifying inquiries and dispatching calendar slots with zero staff latency.",
     active: true,
   },
   {
     id: "proj-3",
-    title: "UrbanNest Architectural Showcase",
-    client: "UrbanNest Furnishings",
-    category: "Full Growth System",
-    servicesUsed: ["Website Development", "Performance Marketing (Meta Ads)", "Branding"],
-    description: "High-ticket luxury furniture acquisition engine with sub-second catalog speeds.",
+    title: "High-Performance Commerce & Retention Engine",
+    client: "Direct-to-Consumer Brand",
+    category: "Growth Systems",
+    servicesUsed: ["Website Development", "Performance Marketing", "Business Process Automation"],
+    description: "Bespoke digital catalog architecture coupled with server-side Meta CAPI tracking and automated dispatch workflows.",
     active: true,
   }
 ];

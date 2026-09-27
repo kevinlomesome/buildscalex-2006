@@ -1,57 +1,126 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Utensils, Building2, Stethoscope, HardHat, Sofa, Activity, GraduationCap, Dumbbell, Calculator, Briefcase, Sparkles } from "lucide-react";
+import { 
+  Briefcase, 
+  Stethoscope, 
+  Building2, 
+  ShoppingBag, 
+  GraduationCap, 
+  Cpu, 
+  ArrowRight,
+  Sparkles
+} from "lucide-react";
+import Link from "next/link";
+import { getWhatsAppLink } from "@/lib/constants";
 import { useCMS } from "@/context/cms-context";
 
-const industries = [
-  { icon: <Utensils />, name: "Restaurants" },
-  { icon: <Building2 />, name: "Real Estate" },
-  { icon: <Stethoscope />, name: "Doctors" },
-  { icon: <HardHat />, name: "Construction" },
-  { icon: <Sofa />, name: "Furniture" },
-  { icon: <Activity />, name: "Healthcare" },
-  { icon: <GraduationCap />, name: "Education" },
-  { icon: <Dumbbell />, name: "Gyms" },
-  { icon: <Calculator />, name: "CA Firms" },
-  { icon: <Briefcase />, name: "Professional Services" }
+interface IndustryDetail {
+  icon: React.ReactNode;
+  name: string;
+  focus: string;
+  solution: string;
+}
+
+const defaultIndustrySectors: IndustryDetail[] = [
+  {
+    icon: <Briefcase className="w-5 h-5 text-primary" />,
+    name: "High-Ticket B2B & Consulting",
+    focus: "Law firms, advisory practices, wealth managers, and agencies",
+    solution: "Multi-step qualification assessments that filter decision-makers, direct calendar booking, and CRM pipeline tracking."
+  },
+  {
+    icon: <Stethoscope className="w-5 h-5 text-primary" />,
+    name: "Healthcare & Specialized Clinics",
+    focus: "Dental clinics, aesthetic practices, private hospitals, and wellness centers",
+    solution: "Instant 24/7 WhatsApp triage, practitioner appointment scheduling, and patient intake automation."
+  },
+  {
+    icon: <Building2 className="w-5 h-5 text-primary" />,
+    name: "Real Estate & Architecture",
+    focus: "Property developers, commercial contractors, and interior architecture studios",
+    solution: "Ultra-fast digital project catalogs, specification estimators, and verified buyer inquiry capture."
+  },
+  {
+    icon: <ShoppingBag className="w-5 h-5 text-primary" />,
+    name: "Modern Commerce & D2C Brands",
+    focus: "High-growth consumer brands, bespoke lifestyle labels, and specialty manufacturers",
+    solution: "Custom Next.js edge storefronts, rapid checkout flows, WhatsApp order notifications, and retention funnels."
+  },
+  {
+    icon: <GraduationCap className="w-5 h-5 text-primary" />,
+    name: "Education, EdTech & Training",
+    focus: "Professional institutes, vocational academies, and international test prep firms",
+    solution: "Course syllabus intake portals, student eligibility quizzes, and automated admission counselor routing."
+  },
+  {
+    icon: <Cpu className="w-5 h-5 text-primary" />,
+    name: "Technology Startups & SaaS",
+    focus: "Early-stage founders, B2B software vendors, and digital product studios",
+    solution: "Sub-second product landing architecture, interactive interactive demo booking, and custom API telemetry."
+  }
 ];
 
 export function IndustriesSection() {
   const { industries: cmsIndustries } = useCMS();
-  const activeIndustries = (cmsIndustries !== undefined ? cmsIndustries : industries)
-    .filter((i) => (i as any).active !== false)
-    .sort((a, b) => ((a as any).order || 0) - ((b as any).order || 0));
 
   return (
-    <section id="industries" className="py-24 relative bg-black/5 dark:bg-black/30 border-y border-border">
+    <section id="industries" className="py-20 md:py-28 relative bg-[#070910] border-y border-white/[0.06]">
       <div className="container mx-auto px-4 md:px-6">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-5xl font-bold mb-4 text-foreground">Industries We Dominate</h2>
-          <p className="text-silver max-w-2xl mx-auto">
-            Tailored digital systems and marketing strategies for specific business sectors.
+        
+        {/* Header */}
+        <div className="max-w-3xl mb-16 md:mb-20">
+          <div className="inline-flex items-center gap-2 py-1 px-3.5 rounded-full bg-white/[0.04] border border-white/10 text-xs font-medium text-silver uppercase tracking-wider mb-5">
+            <Sparkles className="w-3.5 h-3.5 text-primary" />
+            <span>Domain-Specific Architectures</span>
+          </div>
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-foreground mb-4">
+            Tailored Systems by Industry Sector.
+          </h2>
+          <p className="text-silver text-base sm:text-lg leading-relaxed">
+            Different industries face distinct conversion challenges. We engineer custom client acquisition flows and automation protocols tailored directly to your operating model.
           </p>
         </div>
 
-        <div className="flex flex-wrap justify-center gap-4 md:gap-5 max-w-6xl mx-auto">
-          {activeIndustries.map((industry, idx) => (
-            <motion.div
+        {/* 6 Grid Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {defaultIndustrySectors.map((sector, idx) => (
+            <div
               key={idx}
-              initial={{ opacity: 0, scale: 0.95 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.35, delay: idx * 0.04 }}
-              className="glass px-6 py-4 rounded-2xl border border-border/80 flex items-center gap-3 hover:border-primary/50 hover:bg-black/5 dark:hover:bg-white/5 hover:-translate-y-1 transition-all duration-300 shadow-sm hover:shadow-md cursor-pointer group"
+              className="bg-[#0B0E18] border border-white/[0.06] hover:border-white/15 p-7 rounded-2xl flex flex-col justify-between transition-all duration-200"
             >
-              <div className="text-primary group-hover:text-secondary group-hover:scale-110 transition-all">
-                {(industry as any).icon || <Sparkles className="w-5 h-5 text-primary" />}
+              <div>
+                <div className="w-10 h-10 rounded-xl bg-white/[0.04] border border-white/10 flex items-center justify-center mb-5">
+                  {sector.icon}
+                </div>
+
+                <h3 className="text-lg font-bold text-foreground mb-2">
+                  {sector.name}
+                </h3>
+                
+                <p className="text-xs text-silver/60 font-mono mb-4">
+                  {sector.focus}
+                </p>
+
+                <p className="text-sm text-silver leading-relaxed">
+                  {sector.solution}
+                </p>
               </div>
-              <span className="font-semibold text-sm text-foreground/90 group-hover:text-foreground transition-colors">
-                {industry.name}
-              </span>
-            </motion.div>
+
+              <div className="mt-6 pt-4 border-t border-white/[0.06]">
+                <Link
+                  href={getWhatsAppLink(`Hi BuildScaleX, I am in ${sector.name} and would like to discuss tailored systems.`)}
+                  target="_blank"
+                  className="inline-flex items-center gap-1.5 text-xs text-primary hover:text-blue-400 font-semibold transition-colors"
+                >
+                  <span>Explore Sector Architecture</span>
+                  <ArrowRight className="w-3.5 h-3.5" />
+                </Link>
+              </div>
+            </div>
           ))}
         </div>
+
       </div>
     </section>
   );

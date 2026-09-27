@@ -113,13 +113,9 @@ export function Navigation() {
           <ThemeToggle />
 
           <Link
-            href={getWhatsAppLink("Hi Build Scale X, I would like to book a free strategy call.")}
+            href={getWhatsAppLink("Hi BuildScaleX, I would like to book a strategy consultation.")}
             target="_blank"
-            className={buttonVariants({
-              variant: "default",
-              className:
-                "bg-gradient-to-r from-blue-600 via-blue-500 to-cyan-500 hover:from-blue-700 hover:to-cyan-600 text-white font-medium rounded-full px-5 py-2 text-xs shadow-md shadow-blue-500/20 hover:shadow-lg hover:shadow-blue-500/30 hover:-translate-y-0.5 active:translate-y-0 transition-all cursor-pointer",
-            })}
+            className="bg-primary hover:bg-blue-600 text-white font-medium rounded-xl px-4 py-2 text-xs transition-all active:scale-[0.99] border border-primary/30"
           >
             Book Strategy Call
           </Link>
@@ -168,16 +164,12 @@ export function Navigation() {
             })}
             <div className="pt-2 border-t border-border mt-2">
               <Link
-                href={getWhatsAppLink("Hi Build Scale X, I would like to book a free strategy call.")}
+                href={getWhatsAppLink("Hi BuildScaleX, I would like to book a strategy consultation.")}
                 target="_blank"
                 onClick={() => setMobileMenuOpen(false)}
-                className={buttonVariants({
-                  variant: "default",
-                  className:
-                    "w-full bg-gradient-to-r from-blue-600 to-cyan-500 text-white font-medium rounded-xl py-2.5 shadow-md",
-                })}
+                className="w-full inline-flex items-center justify-center bg-primary hover:bg-blue-600 text-white font-medium rounded-xl py-2.5 text-xs transition-all active:scale-[0.99]"
               >
-                Book Free Strategy Call
+                Book Strategy Consultation
               </Link>
             </div>
           </motion.div>

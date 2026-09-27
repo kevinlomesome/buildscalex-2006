@@ -59,27 +59,27 @@
 }
 
 .dark {
-  --background: #050816;
-  --foreground: #FFFFFF;
-  --card: rgba(255, 255, 255, 0.03);
-  --card-foreground: #FFFFFF;
-  --popover: rgba(5, 8, 22, 0.95);
-  --popover-foreground: #FFFFFF;
+  --background: #080A11;
+  --foreground: #F8FAFC;
+  --card: #0F121D;
+  --card-foreground: #F8FAFC;
+  --popover: #0F121D;
+  --popover-foreground: #F8FAFC;
   --primary: #2563EB;
   --primary-foreground: #FFFFFF;
-  --secondary: #00D4FF;
+  --secondary: #3B82F6;
   --secondary-foreground: #FFFFFF;
-  --muted: rgba(255, 255, 255, 0.08);
+  --muted: #151926;
   --muted-foreground: #94A3B8;
-  --accent: #06B6D4;
+  --accent: #1D4ED8;
   --accent-foreground: #FFFFFF;
   --destructive: #EF4444;
   --destructive-foreground: #FFFFFF;
-  --border: rgba(255, 255, 255, 0.1);
+  --border: rgba(255, 255, 255, 0.08);
   --input: rgba(255, 255, 255, 0.1);
   --ring: #2563EB;
   --silver: #94A3B8;
-  --radius: 1rem;
+  --radius: 0.75rem;
 }
 
 @layer base {
@@ -95,9 +95,9 @@
 }
 
 @utility glass {
-  @apply bg-white/80 dark:bg-white/[0.04] backdrop-blur-xl border border-slate-200/80 dark:border-white/10 shadow-[0_4px_24px_rgba(0,0,0,0.04)] dark:shadow-[0_4px_30px_rgba(0,0,0,0.25)];
+  @apply bg-white/95 dark:bg-[#0D101A]/85 backdrop-blur-md border border-slate-200/90 dark:border-white/[0.08] shadow-sm;
 }
 
 @utility card-hover {
-  @apply transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:border-primary/40;
+  @apply transition-all duration-200 hover:-translate-y-0.5 hover:border-white/20;
 }

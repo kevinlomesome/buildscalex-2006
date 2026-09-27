@@ -478,9 +478,9 @@ Thank you.`;
                     <Button
                       type="submit"
                       size="lg"
-                      className="w-full bg-gradient-to-r from-blue-600 via-blue-500 to-[#38BDF8] hover:from-blue-700 hover:to-[#0284c7] text-white font-bold text-sm sm:text-base py-6 rounded-xl shadow-lg shadow-blue-500/25 hover:shadow-xl hover:shadow-blue-500/35 hover:-translate-y-0.5 active:translate-y-0 transition-all cursor-pointer flex items-center justify-center gap-2"
+                      className="w-full bg-primary hover:bg-blue-600 text-white font-semibold text-sm sm:text-base py-5 rounded-xl transition-all shadow-sm active:scale-[0.99] cursor-pointer flex items-center justify-center gap-2 border border-primary/30"
                     >
-                      <span>Send Message &amp; Connect on WhatsApp</span>
+                      <span>Send Project Brief &amp; Connect on WhatsApp</span>
                       <ArrowRight className="w-4 h-4" />
                     </Button>
                   </form>

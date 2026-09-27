@@ -2,7 +2,6 @@
 
 import { createContext, useContext, useState, useEffect, ReactNode } from "react";
 import { LoadingScreen } from "@/components/loading-screen";
-import { MouseGlow } from "@/components/mouse-glow";
 import { ScrollToTop } from "@/components/scroll-to-top";
 import { StickyMobileCta } from "@/components/sticky-mobile-cta";
 
@@ -29,7 +28,6 @@ export function OpeningProvider({ children }: { children: ReactNode }) {
   return (
     <OpeningContext.Provider value={{ isLoaded }}>
       {showLoading && <LoadingScreen onComplete={handleComplete} />}
-      <MouseGlow />
       {children}
       <ScrollToTop />
       <StickyMobileCta />

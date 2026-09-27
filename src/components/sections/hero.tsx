@@ -3,8 +3,7 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, CheckCircle2, MessageCircle, Sparkles, Zap, Shield, TrendingUp } from "lucide-react";
-import { buttonVariants } from "@/components/ui/button";
+import { ArrowRight, CheckCircle2, MessageSquare, Terminal } from "lucide-react";
 import { getWhatsAppLink } from "@/lib/constants";
 import { useOpening } from "@/components/opening-provider";
 import { useCMS } from "@/context/cms-context";
@@ -14,88 +13,42 @@ export function HeroSection() {
   const { hero } = useCMS();
 
   return (
-    <section className="relative min-h-[calc(100vh-80px)] flex flex-col justify-center items-center py-12 md:py-16 overflow-hidden">
-      {/* Background Cyber Grid & Glows */}
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff05_1px,transparent_1px),linear-gradient(to_bottom,#ffffff05_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_40%,#000_70%,transparent_100%)] pointer-events-none"></div>
-      
-      {/* Dynamic Ambient Spotlights inspired by logo theme */}
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] md:w-[750px] h-[350px] md:h-[450px] bg-gradient-to-tr from-primary/20 via-secondary/15 to-transparent rounded-full blur-[140px] pointer-events-none"></div>
-      <div className="absolute top-1/3 left-1/3 w-72 h-72 bg-blue-600/10 rounded-full blur-[100px] pointer-events-none"></div>
-      <div className="absolute top-1/3 right-1/3 w-72 h-72 bg-cyan-400/10 rounded-full blur-[100px] pointer-events-none"></div>
+    <section className="relative min-h-[calc(100vh-80px)] flex flex-col justify-center items-center py-16 md:py-24 overflow-hidden">
+      {/* Subtle Micro-Grid Texture */}
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_70%_60%_at_50%_40%,#000_60%,transparent_100%)] pointer-events-none" />
 
-      {/* Floating SaaS Cards (Left & Right) for Luxury SaaS Depth */}
-      <motion.div
-        initial={{ opacity: 0, x: -40, y: 15 }}
-        animate={isLoaded ? { opacity: 1, x: 0, y: 0 } : { opacity: 0, x: -40, y: 15 }}
-        transition={{ duration: 0.8, delay: 0.75, ease: [0.16, 1, 0.3, 1] }}
-        className="hidden lg:flex absolute left-8 xl:left-20 top-1/3 glass p-4 rounded-2xl border border-border/80 items-center gap-3.5 shadow-xl backdrop-blur-md z-20 hover:border-primary/50 hover:-translate-y-1 transition-all duration-300"
-      >
-        <div className="w-10 h-10 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center text-primary">
-          <TrendingUp className="w-5 h-5 text-primary" />
-        </div>
-        <div className="text-left">
-          <div className="text-[11px] text-silver font-medium">Conversion Architecture</div>
-          <div className="text-sm font-bold text-foreground font-heading">+240% Lead Growth</div>
-        </div>
-      </motion.div>
-
-      <motion.div
-        initial={{ opacity: 0, x: 40, y: 15 }}
-        animate={isLoaded ? { opacity: 1, x: 0, y: 0 } : { opacity: 0, x: 40, y: 15 }}
-        transition={{ duration: 0.8, delay: 0.88, ease: [0.16, 1, 0.3, 1] }}
-        className="hidden lg:flex absolute right-8 xl:right-20 top-1/3 glass p-4 rounded-2xl border border-border/80 items-center gap-3.5 shadow-xl backdrop-blur-md z-20 hover:border-secondary/50 hover:-translate-y-1 transition-all duration-300"
-      >
-        <div className="w-10 h-10 rounded-xl bg-secondary/10 border border-secondary/20 flex items-center justify-center text-secondary">
-          <Zap className="w-5 h-5 text-secondary" />
-        </div>
-        <div className="text-left">
-          <div className="text-[11px] text-silver font-medium">Automated Pipeline</div>
-          <div className="text-sm font-bold text-foreground font-heading">&lt; 60s Lead Response</div>
-        </div>
-      </motion.div>
+      {/* Controlled, Soft Atmospheric Illumination */}
+      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[580px] md:w-[840px] h-[360px] bg-primary/10 rounded-full blur-[140px] pointer-events-none" />
 
       <div className="container mx-auto px-4 md:px-6 relative z-10">
         <div className="max-w-4xl mx-auto text-center flex flex-col items-center">
           
-          {/* Logo Badge & Tagline */}
+          {/* Engineering Pill Badge */}
           <motion.div
-            initial={{ opacity: 0, y: 25 }}
-            animate={isLoaded ? { opacity: 1, y: 0 } : { opacity: 0, y: 25 }}
-            transition={{ duration: 0.6, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-            className="flex items-center gap-3 py-1.5 px-4 rounded-full glass border border-border/80 shadow-sm mb-8 backdrop-blur-md"
+            initial={{ opacity: 0, y: 15 }}
+            animate={isLoaded ? { opacity: 1, y: 0 } : { opacity: 0, y: 15 }}
+            transition={{ duration: 0.5, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+            className="flex items-center gap-2.5 py-1.5 px-4 rounded-full bg-white/[0.04] border border-white/10 shadow-sm mb-8"
           >
-            <div className="relative w-5 h-5 rounded-md overflow-hidden border border-border bg-[#030612] p-0.5">
-              <Image
-                src="/logo-emblem.png"
-                alt="BSX Emblem"
-                width={20}
-                height={20}
-                className="object-contain"
-              />
-            </div>
-            <span className="text-xs font-semibold uppercase tracking-wider text-foreground">
-              {hero?.badgeText || "Growth Systems & AI Automation Agency"}
-            </span>
-            <span className="flex h-2 w-2 relative">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-secondary opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-secondary"></span>
+            <div className="w-2 h-2 rounded-full bg-primary" />
+            <span className="text-xs font-medium text-foreground tracking-wide">
+              {hero?.badgeText || "Growth Systems & Technical Architecture"}
             </span>
           </motion.div>
 
-          {/* Central Logo Emblem Preview */}
+          {/* Central Architectural Emblem */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.9, y: 20 }}
-            animate={isLoaded ? { opacity: 1, scale: 1, y: 0 } : { opacity: 0, scale: 0.9, y: 20 }}
-            transition={{ duration: 0.65, delay: 0.18, ease: [0.16, 1, 0.3, 1] }}
-            className="relative mb-6 group cursor-pointer"
+            initial={{ opacity: 0, scale: 0.92 }}
+            animate={isLoaded ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.92 }}
+            transition={{ duration: 0.6, delay: 0.18, ease: [0.16, 1, 0.3, 1] }}
+            className="relative mb-8"
           >
-            <div className="absolute -inset-1 rounded-2xl bg-gradient-to-r from-blue-600 via-primary to-cyan-400 opacity-20 group-hover:opacity-40 blur-xl transition duration-500"></div>
-            <div className="relative w-24 h-24 md:w-28 md:h-28 rounded-2xl overflow-hidden border border-border shadow-2xl bg-[#030612] p-2 flex items-center justify-center group-hover:scale-105 transition-transform duration-300">
+            <div className="relative w-20 h-20 md:w-24 md:h-24 rounded-2xl overflow-hidden border border-white/15 shadow-xl bg-[#090C15] p-2.5 flex items-center justify-center">
               <Image
                 src="/logo-emblem.png"
-                alt="Build Scale X Official Logo"
-                width={112}
-                height={112}
+                alt="BuildScaleX Emblem"
+                width={96}
+                height={96}
                 className="object-contain w-full h-full"
                 priority
               />
@@ -104,82 +57,87 @@ export function HeroSection() {
 
           {/* High-Converting Main Headline */}
           <motion.h1
-            initial={{ opacity: 0, y: 35 }}
-            animate={isLoaded ? { opacity: 1, y: 0 } : { opacity: 0, y: 35 }}
-            transition={{ duration: 0.7, delay: 0.28, ease: [0.16, 1, 0.3, 1] }}
-            className="text-4xl sm:text-5xl md:text-7xl font-extrabold tracking-tight mb-6 text-foreground"
-          >
-            {hero?.headlineLine1 || "Build Digital Systems That Generate"}{" "}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-blue-500 to-cyan-500">
-              {hero?.headlineGradient || "Qualified Leads"}
-            </span>{" "}
-            {hero?.headlineLine2 || "& Predictable Revenue."}
-          </motion.h1>
-
-          {/* Converting Subtitle */}
-          <motion.p
             initial={{ opacity: 0, y: 25 }}
             animate={isLoaded ? { opacity: 1, y: 0 } : { opacity: 0, y: 25 }}
-            transition={{ duration: 0.6, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
-            className="text-base sm:text-lg md:text-xl text-silver mb-8 max-w-2xl mx-auto leading-relaxed"
+            transition={{ duration: 0.65, delay: 0.26, ease: [0.16, 1, 0.3, 1] }}
+            className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-foreground mb-6 leading-[1.12]"
           >
-            {hero?.description || "We help ambitious businesses build high-converting websites, 24/7 AI automation workflows, CRM systems, and data-backed Meta Ads. Zero generic templates. 100% custom growth architecture."}
+            {hero?.headlineLine1 ? (
+              <>
+                {hero.headlineLine1}{" "}
+                <span className="text-primary font-bold">
+                  {hero.headlineGradient || "Qualified Leads"}
+                </span>{" "}
+                {hero.headlineLine2}
+              </>
+            ) : (
+              <>
+                We Build AI-Powered Client Acquisition Systems That Generate More{" "}
+                <span className="text-primary font-bold">
+                  Qualified Leads.
+                </span>
+              </>
+            )}
+          </motion.h1>
+
+          {/* Concise, Benefit-Driven Human Copy */}
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={isLoaded ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+            transition={{ duration: 0.6, delay: 0.38, ease: [0.16, 1, 0.3, 1] }}
+            className="text-base sm:text-lg md:text-xl text-silver mb-10 max-w-2xl mx-auto leading-relaxed"
+          >
+            {hero?.description || "BuildScaleX engineers custom high-performance websites, automated lead generation systems, CRM integrations, and intelligent AI agents for ambitious businesses."}
           </motion.p>
 
-          {/* Action CTAs */}
-          <motion.div
-            initial={{ opacity: 0, y: 20, scale: 0.96 }}
-            animate={isLoaded ? { opacity: 1, y: 0, scale: 1 } : { opacity: 0, y: 20, scale: 0.96 }}
-            transition={{ duration: 0.6, delay: 0.52, ease: [0.16, 1, 0.3, 1] }}
-            className="flex flex-col sm:flex-row items-center justify-center gap-4 w-full sm:w-auto mb-10"
-          >
-            <Link 
-              href={getWhatsAppLink("Hi Build Scale X, I want to book a free 1-on-1 strategy call for my business.")} 
-              target="_blank"
-              className={buttonVariants({ 
-                size: "lg", 
-                className: "w-full sm:w-auto bg-gradient-to-r from-blue-600 via-blue-500 to-cyan-500 hover:from-blue-700 hover:to-cyan-600 text-white font-bold rounded-2xl px-8 py-6 text-base sm:text-lg shadow-lg shadow-blue-500/25 hover:shadow-xl hover:shadow-blue-500/35 hover:-translate-y-0.5 active:translate-y-0 transition-all flex items-center justify-center gap-2 cursor-pointer" 
-              })}
-            >
-              <MessageCircle className="w-5 h-5 text-white" />
-              Book Free Strategy Call
-              <ArrowRight className="w-5 h-5 text-white" />
-            </Link>
-            
-            <Link 
-              href="#contact"
-              className={buttonVariants({ 
-                size: "lg", 
-                variant: "outline", 
-                className: "w-full sm:w-auto glass hover:bg-black/5 dark:hover:bg-white/10 text-foreground border-border/80 hover:border-primary/40 font-medium rounded-2xl px-8 py-6 text-base sm:text-lg hover:-translate-y-0.5 active:translate-y-0 transition-all cursor-pointer" 
-              })}
-            >
-              Get Free Growth Audit
-            </Link>
-          </motion.div>
-
-          {/* Trust and Conversion Badges Strip */}
+          {/* Tactile Primary & Secondary Actions */}
           <motion.div
             initial={{ opacity: 0, y: 15 }}
             animate={isLoaded ? { opacity: 1, y: 0 } : { opacity: 0, y: 15 }}
-            transition={{ duration: 0.7, delay: 0.64, ease: [0.16, 1, 0.3, 1] }}
-            className="grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-6 pt-6 border-t border-border/80 w-full max-w-3xl"
+            transition={{ duration: 0.55, delay: 0.48, ease: [0.16, 1, 0.3, 1] }}
+            className="flex flex-col sm:flex-row items-center justify-center gap-4 w-full sm:w-auto mb-14"
           >
-            <div className="flex items-center justify-center gap-2 text-xs sm:text-sm text-silver font-medium">
+            <Link
+              href={getWhatsAppLink("Hi BuildScaleX, I would like to discuss building a growth system for our business.")}
+              target="_blank"
+              className="w-full sm:w-auto bg-primary hover:bg-blue-600 text-white font-semibold rounded-xl px-8 py-4 text-sm sm:text-base transition-all shadow-sm active:scale-[0.99] flex items-center justify-center gap-2.5 cursor-pointer border border-primary/30"
+            >
+              <MessageSquare className="w-4 h-4 text-white" />
+              <span>Book Strategy Consultation</span>
+              <ArrowRight className="w-4 h-4 text-white" />
+            </Link>
+
+            <Link
+              href="#services"
+              className="w-full sm:w-auto bg-white/[0.04] hover:bg-white/[0.08] text-foreground border border-white/10 hover:border-white/20 font-medium rounded-xl px-7 py-4 text-sm sm:text-base transition-all active:scale-[0.99] flex items-center justify-center gap-2 cursor-pointer"
+            >
+              <Terminal className="w-4 h-4 text-silver" />
+              <span>Explore Capabilities</span>
+            </Link>
+          </motion.div>
+
+          {/* Truthful Engineering Deliverables */}
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={isLoaded ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
+            transition={{ duration: 0.6, delay: 0.58, ease: [0.16, 1, 0.3, 1] }}
+            className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8 pt-8 border-t border-white/[0.08] w-full max-w-3xl"
+          >
+            <div className="flex items-center justify-center gap-2 text-xs md:text-sm text-silver">
               <CheckCircle2 className="w-4 h-4 text-primary shrink-0" />
-              <span>100% Custom Code</span>
+              <span>100% Handcrafted Code</span>
             </div>
-            <div className="flex items-center justify-center gap-2 text-xs sm:text-sm text-silver font-medium">
-              <Zap className="w-4 h-4 text-secondary shrink-0" />
-              <span>&lt; 15m WhatsApp Reply</span>
+            <div className="flex items-center justify-center gap-2 text-xs md:text-sm text-silver">
+              <CheckCircle2 className="w-4 h-4 text-primary shrink-0" />
+              <span>Sub-Second Performance</span>
             </div>
-            <div className="flex items-center justify-center gap-2 text-xs sm:text-sm text-silver font-medium">
-              <Sparkles className="w-4 h-4 text-primary shrink-0" />
-              <span>AI & Funnel Ready</span>
+            <div className="flex items-center justify-center gap-2 text-xs md:text-sm text-silver">
+              <CheckCircle2 className="w-4 h-4 text-primary shrink-0" />
+              <span>Direct Engineering Access</span>
             </div>
-            <div className="flex items-center justify-center gap-2 text-xs sm:text-sm text-silver font-medium">
-              <Shield className="w-4 h-4 text-secondary shrink-0" />
-              <span>Zero Lock-in Contract</span>
+            <div className="flex items-center justify-center gap-2 text-xs md:text-sm text-silver">
+              <CheckCircle2 className="w-4 h-4 text-primary shrink-0" />
+              <span>Zero Template Lock-In</span>
             </div>
           </motion.div>
 

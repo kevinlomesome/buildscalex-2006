@@ -20,7 +20,7 @@ export function Footer() {
     .sort((a, b) => (a.order || 0) - (b.order || 0));
 
   return (
-    <footer className="border-t border-border bg-slate-100/70 dark:bg-[#040711] pt-16 pb-8 transition-colors">
+    <footer className="border-t border-border dark:border-white/[0.06] bg-slate-100/70 dark:bg-[#070910] pt-16 pb-8 transition-colors">
       <div className="container mx-auto px-4 md:px-6">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
           {/* Brand */}
@@ -47,8 +47,8 @@ export function Footer() {
             <p className="text-silver text-sm mb-6 leading-relaxed">
               Helping businesses build powerful digital systems that generate more leads, increase conversions, automate operations, and scale revenue.
             </p>
-            <p className="font-heading font-bold text-xs tracking-wider bg-clip-text text-transparent bg-gradient-to-r from-blue-600 via-primary to-cyan-500">
-              — {settings?.tagline || "BUILD. SCALE. DOMINATE."} —
+            <p className="font-mono text-xs text-primary font-semibold tracking-wider">
+              {settings?.tagline || "BUILD. SCALE. DOMINATE."}
             </p>
           </div>
 

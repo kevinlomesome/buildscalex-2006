@@ -21,12 +21,12 @@ export default function ServicesPage() {
             <span>Comprehensive Growth Infrastructure</span>
           </div>
 
-          <h1 className="text-4xl sm:text-5xl md:text-7xl font-extrabold tracking-tight mb-6 text-foreground">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight mb-6 text-foreground">
             Engineered For{" "}
-            <span className="bg-gradient-to-r from-blue-600 via-blue-500 to-cyan-500 bg-clip-text text-transparent">
+            <span className="text-primary">
               High Conversion
             </span>{" "}
-            & Scale.
+            &amp; Scale.
           </h1>
 
           <p className="text-silver text-base sm:text-lg md:text-xl max-w-2xl mx-auto leading-relaxed mb-10">
@@ -35,17 +35,17 @@ export default function ServicesPage() {
 
           {/* Quick Pillars Strip */}
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-2xl mx-auto">
-            <div className="glass p-3.5 rounded-2xl border border-border/80 flex items-center justify-center gap-2.5">
+            <div className="glass p-3.5 rounded-xl border border-white/[0.08] flex items-center justify-center gap-2.5">
               <Zap className="w-4 h-4 text-primary shrink-0" />
-              <span className="text-xs font-semibold text-foreground">7 Integrated Systems</span>
+              <span className="text-xs font-semibold text-foreground">8 Core Systems</span>
             </div>
-            <div className="glass p-3.5 rounded-2xl border border-border/80 flex items-center justify-center gap-2.5">
-              <Shield className="w-4 h-4 text-secondary shrink-0" />
-              <span className="text-xs font-semibold text-foreground">88 Specialized Solutions</span>
-            </div>
-            <div className="glass p-3.5 rounded-2xl border border-border/80 flex items-center justify-center gap-2.5">
-              <Sparkles className="w-4 h-4 text-primary shrink-0" />
+            <div className="glass p-3.5 rounded-xl border border-white/[0.08] flex items-center justify-center gap-2.5">
+              <Shield className="w-4 h-4 text-primary shrink-0" />
               <span className="text-xs font-semibold text-foreground">100% Handcrafted Code</span>
+            </div>
+            <div className="glass p-3.5 rounded-xl border border-white/[0.08] flex items-center justify-center gap-2.5">
+              <Sparkles className="w-4 h-4 text-primary shrink-0" />
+              <span className="text-xs font-semibold text-foreground">Lighthouse 95+ Standard</span>
             </div>
           </div>
         </div>
